@@ -2,9 +2,11 @@ import { Link, useNavigate } from "react-router-dom"
 import PathConstants from "../../routes/PathConstants"
 import { Typography } from "@mui/material"
 import axios from "axios"
+import { useThemeDetector, logo } from "../../components/ThemeDetector"
 
 const Signup = () => {
   const navigate = useNavigate()
+  const dark = useThemeDetector()
 
   const submitHandler = (event) => {
 
@@ -19,7 +21,7 @@ const Signup = () => {
   return (
     <>
     <form method="post" className="container" aria-label="login form" onSubmit={submitHandler}>
-        <img src="/images/big_icon.svg" alt="X icon" className="x-logo" />
+        <img src={dark ? logo.dark: logo.light} alt="X icon" className="x-logo" />
         <div className="form">
             <Typography variant="h1" gutterBottom fontWeight={500}>Twitter</Typography>
             <input type="text" name="username" id="" placeholder="Username" className="login-field" />

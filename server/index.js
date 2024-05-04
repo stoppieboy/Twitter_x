@@ -24,8 +24,8 @@ app.use("/api", authorize)
 
 // routes
 app.use("/auth", authRouteHandler)
-app.get('/api', (req, res) => res.send('hi'))
-// app.use("/api", apiRouteHandler)
+// app.get('/api', (req, res) => res.send('hi'))
+app.use("/api", apiRouteHandler)
 
 
 app.listen(PORT, () => console.log(`server listening on port ${PORT}...`))

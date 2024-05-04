@@ -2,7 +2,7 @@ const router = require('express').Router()
 const api = require('../controllers/api')
 
 router
-    .get('/', api.authenticate)
+    .get('/data', api.data)
     .get('/test', api.test)
     .post('/testing', (req, res) => res.send('hi'))
 

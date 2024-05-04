@@ -24,13 +24,9 @@ const Layout = () => {
     }
 
     return (
-        <>
-            <main>
-                <Suspense fallback={<ShimmerUI />}>
-                    <Outlet />
-                </Suspense>
-            </main>
-        </>
+        <Suspense fallback={<ShimmerUI />}>
+            <Outlet />
+        </Suspense>
     )
 }
 

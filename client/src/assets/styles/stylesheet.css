@@ -10,13 +10,6 @@ body{
     height: 100vh; */
 }
 
-a{
-    text-decoration: underline;
-    color: inherit;
-    font-weight: bold;
-    font-size: larger;
-}
-
 .container{
     display: flex;
 }
@@ -24,12 +17,10 @@ a{
 .form{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     padding-top: 32px;
     padding-bottom: 32px;
-    /* border-left: 5px solid black; */
-    padding-left: 30px;
-    gap: 10px;
+    gap: 12px;
 }
 
 .logo{
@@ -57,10 +48,10 @@ a{
 }
 
 .login-btn{
-    background-color: teal;
-    border: 2px solid darkblue;
+    /* background-color: rgb(26, 140, 216); */
+    border: 2px solid transparent;
     padding: 10px 200px;
-    color: white;
+    /* color: white; */
     font-size: medium;
     font-weight: 600;
 }
@@ -69,49 +60,4 @@ a{
     height: 40px;
     padding: 20px 20px;
     font-size: medium;
-}
-
-
-
-
-.no_pointer{
-    pointer-events: none !important;
-}
-
-.no-pointer > * {
-    pointer-events: auto;
-}
-
-.flex{
-    flex: 1;
-}
-
-.box{
-    align-items: stretch;
-    border: 0 solid black;
-    box-sizing: border-box;
-    display: flex;
-    flex-basis: auto;
-    flex-direction: column;
-    flex-shrink: 0;
-    list-style: none;
-    margin: 0px;
-    min-height: 0px;
-    min-width: 0px;
-    padding: 0px;
-    position: relative;
-    text-decoration: none;
-    z-index: 0;
-}
-
-min_height {
-    min-height: 100dvh;
-}
-
-width_f{
-    width: 100%;
-}
-
-div{
-    unicode-bidi: isolate;
 }

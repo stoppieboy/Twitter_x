@@ -1,14 +1,7 @@
 
 module.exports = {
-    authenticate: async (req, res) => {
-        // console.log(auth.currentUser)
-        // const {email, password} = req.query;
-        // signInWithEmailAndPassword(auth, email, password).then((user) => console.log(user)).then((user) => {
-        //     console.log(user);
-        //     console.log('authenticated')
-        //     res.send('authenticated')
-        // })
-        // console.log(auth.currentUser)
+    data: (req, res) => {
+        res.send(`all data of ${req.user.username}`)
     },
     test: (req, res) => {
         console.log(auth.currentUser)

@@ -1,34 +1,41 @@
 import PathConstants from "../../routes/PathConstants"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Typography } from "@mui/material"
 import axios from "axios"
+import { logo, useThemeDetector } from "../../components/ThemeDetector"
 
 const Login = () => {
+
+  const dark = useThemeDetector()
+  const navigate = useNavigate()
 
   const submitHandler = async(event) => {
     event.preventDefault()
     if(!localStorage.getItem("API_KEY")){
-      const { data } = await axios.post("http://localhost:3000/auth/login", {
-        username: event.target.username.value,
-        password: event.target.password.value
-      })
-      localStorage.setItem("API_KEY", data)
+      try{
+        const { data } = await axios.post("http://localhost:3000/auth/login", {
+          username: event.target.username.value,
+          password: event.target.password.value
+        })
+        localStorage.setItem("API_KEY", data)
+        navigate('/')
+      }catch(err){
+        console.log(err);
+      }
     }
   }
 
   return (
-    <form method="get" className="container" aria-label="login form" onSubmit={submitHandler}>
-        <img src="/images/big_icon.svg" alt="X icon" className="x-logo" />
-        {/* <div className="logoContainer">
-          <svg viewBox="0 0 24 24" aria-hidden="true" className="logo"><g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></g></svg>
-        </div> */}
+    <form method="get" className="container space-x-8" aria-label="login form" onSubmit={submitHandler}>
+        <img src={dark ? logo.dark: logo.light} alt="X icon" className="x-logo" />
         <div className="form">
             <Typography variant="h1" gutterBottom fontWeight={500}>Twitter</Typography>
-            <input type="text" name="username" placeholder="username" className="login-field" />
+            <input type="text" name="username" placeholder="Username" className="login-field" />
             <input type="password" name="password" placeholder="Password" className="login-field" />
             <button type="submit" className="login-btn">Login</button>
-            {/* <a href="./views/signup.html" rel="noopener noreferrer">Create a new account.</a> */}
-            <Link to={PathConstants.SIGNUP} rel="noopener noreferrer">Create a new account.</Link>
+            <div className="flex justify-center">
+              <Link to={PathConstants.SIGNUP} rel="noopener noreferrer">Create a new account.</Link>
+            </div>
         </div>
     </form>
   )
