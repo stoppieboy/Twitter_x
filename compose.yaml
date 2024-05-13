@@ -1,0 +1,9 @@
+services:
+  api:
+    container_name: twitter-api
+    image: express-twitter-api
+    build:
+      context: server
+      dockerfile: dockerfile
+    ports:
+      - "3000:3000"

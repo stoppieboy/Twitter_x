@@ -1,20 +1,23 @@
-// library requires
+// MARK: library requires
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 require('dotenv').config()
 
-// custom requires
+// MARK: custom requires
 const apiRouteHandler = require('./routeHandlers/apiRouteHandler')
 const authRouteHandler = require('./routeHandlers/authRouteHandler')
 const authorize = require('./middlewares/authorize')
+const Mongo = require('./utility/database-config')
 
-// Constants
+// MARK: Constants
 const PORT = process.env.PORT || 3000
 const app = express()
 
-// middlewares
+Mongo().catch(console.dir)
+
+// MARK: Middlewares
 // app.use(express.urlencoded())
 app.use(express.json())
 app.use(cors())
@@ -22,7 +25,7 @@ app.use(helmet())
 app.use(morgan('dev'))
 app.use("/api", authorize)
 
-// routes
+// MARK: routes
 app.use("/auth", authRouteHandler)
 // app.get('/api', (req, res) => res.send('hi'))
 app.use("/api", apiRouteHandler)
