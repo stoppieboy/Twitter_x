@@ -68,6 +68,17 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 } */
 
+/* fieldset{
+  color: green;
+}
+
+legend{
+  background-color: red;
+  color: #fff;
+  
+  padding: 3px 6px;
+} */
+
 @media (prefers-color-scheme: light) {
   :root {
     color: inherit;

@@ -24,3 +24,5 @@ currently using cloud hosted database server -- MongoDB Atlas.
 - [JWT based server-side authentication and authorization](https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs)
 - [joining two collections in MongoDB](https://hevodata.com/learn/mongodb-join-two-collections/)
 - [aggregation pipeline in MongoDB](https://www.mongodb.com/docs/manual/reference/operator/aggregation/match/)
+- [filtering mongoDB documents based on text](https://sparkbyexamples.com/mongodb/mongodb-check-if-a-field-contains-a-string/)
+- [Debouncing and throttling](https://dev.to/abhishekrawe/debouncing-and-throttling-in-reactjs-4fhf)

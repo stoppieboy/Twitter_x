@@ -22,7 +22,7 @@ const Home = () => {
         console.log("rendered");
         if(!user){
             console.log('User not logged in.');
-            navigate('/login')
+            navigate(PathConstants.LOGIN)
         }
         fetchData()
     }, [])
@@ -30,7 +30,7 @@ const Home = () => {
     
     const logoutHandler = () => {
         localStorage.removeItem("API_KEY")
-        navigate('/login');
+        navigate(PathConstants.LOGIN);
     }
 
     const tweetHandler = async() => {
@@ -70,7 +70,7 @@ const Home = () => {
             if(err.response.status === 403){
                 localStorage.removeItem("API_KEY")
                 console.log('redirecting to login page');
-                navigate('/login')
+                navigate(PathConstants.LOGIN)
             }
         }
     }
@@ -87,22 +87,22 @@ const Home = () => {
             <div><button className="p-2 rounded-md w-32" onClick={fetchData}>Fetch Data</button></div>
             <div><button className="p-2 rounded-md w-32" onClick={logoutHandler}>Logout</button></div> */}
             <div id="left-side-pane">
-                
+                <img src="/images/big_icon_outline_light.svg" alt="" width="30px"/>
                 <NavLink to={PathConstants.HOME} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faHouse} /></NavLink>
-                <NavLink to={PathConstants.TEST} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faMagnifyingGlass} /></NavLink>
+                <NavLink to={PathConstants.SEARCH} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faMagnifyingGlass} /></NavLink>
                 <NavLink to={PathConstants.TEST} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faEnvelope} /></NavLink>
                 <NavLink to={PathConstants.TEST} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faTwitter} /></NavLink>
             </div>
             <div id="middle-pane">
-                <div>
+                <div id="twitter-title">
                     <Typography variant="h1" gutterBottom fontWeight={500}>Twitter</Typography>
                 </div>
                 <div id="compose-box">  
-                    <div id="input" onFocus={(e)=>{if(e.target.innerHTML==="Tweet...")e.target.innerHTML = ""}}>Tweet...</div>
-                    <div><button className="p-2 rounded-md w-32" onClick={tweetHandler}>Tweet</button></div>
+                    <div id="input" onFocus={(e)=>{if(e.target.innerHTML==="Tweet...") e.target.innerHTML = ""}} onBlur={(e) => {if(e.target.innerHTML ==="") e.target.innerHTML="Tweet..."}}>Tweet...</div>
+                    <div className="flex justify-end"><button className="p-2 rounded-md w-32" onClick={tweetHandler}>Tweet</button></div>
                 </div>
                 <div id="feed">
-                    {tweets? <Loading/>: tweets.map((t, id) => (
+                    {loading? <Loading/>: tweets.map((t, id) => (
                         <Tweet tweet={t} key={id}/>
                     ))}
                 </div>

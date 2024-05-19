@@ -6,5 +6,7 @@ router
     .get('/test', api.test)
     .post('/testing', (req, res) => res.send('hi'))
     .post('/tweet', api.postTweet)
+    .post('/follow', api.follow)
+    .post('/unfollow', api.unfollow)
 
 module.exports = router

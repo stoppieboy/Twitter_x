@@ -1,13 +1,14 @@
-// MARK: library requires
+// MARK: Library requires
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 require('dotenv').config()
 
-// MARK: custom requires
+// MARK: Custom requires
 const apiRouteHandler = require('./routeHandlers/apiRouteHandler')
 const authRouteHandler = require('./routeHandlers/authRouteHandler')
+const searchRouteHandler = require('./routeHandlers/searchRouteHandler')
 const authorize = require('./middlewares/authorize')
 const Mongo = require('./utility/database-config')
 
@@ -23,12 +24,11 @@ app.use(express.json())
 app.use(cors())
 app.use(helmet())
 app.use(morgan('dev'))
-app.use("/api", authorize)
 
-// MARK: routes
+// MARK: Routes
 app.use("/auth", authRouteHandler)
-// app.get('/api', (req, res) => res.send('hi'))
-app.use("/api", apiRouteHandler)
+app.use("/api", authorize, apiRouteHandler)
+app.use("/search", searchRouteHandler)
 
 
 app.listen(PORT, () => console.log(`server listening on port ${PORT}...`))
