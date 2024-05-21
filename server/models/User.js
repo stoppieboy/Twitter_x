@@ -1,7 +1,8 @@
 const { v4 : uuidv4 } = require('uuid')
 const uniqueValidator = require('mongoose-unique-validator')
 const { Schema, default: mongoose } = require("mongoose");
-const Tweet = require('./Tweet')
+// const Tweet = require('./Tweet')
+const Follow = require('./Follow')
 
 const schema = new Schema({
 
@@ -53,12 +54,20 @@ schema.statics.createUser = async function({ username, password}) {
  */
 schema.statics.getFeed = async function( uid ) {
     try{
-        const tweets = await Tweet.aggregate([
-            {$match: { uid: uid }},
-            {$lookup: {from: "users", localField: "uid", foreignField: "_id", as: "user"}},
-            {$unwind: "$user"},
-            {$project: {_id:1, content:1, username: "$user.username", createdAt:1}},
-            {$sort: { createdAt: -1}},
+        // const tweets = await Tweet.aggregate([
+        //     {$match: { uid: uid }},
+        //     {$lookup: {from: "users", localField: "uid", foreignField: "_id", as: "user"}},
+        //     {$unwind: "$user"},
+        //     {$project: {_id:1, content:1, username: "$user.username", createdAt:1}},
+        //     {$sort: { createdAt: -1}},
+        // ])
+
+        const tweets = await Follow.aggregate([
+            {$match: { followerID: uid }},
+            {$lookup: {from: "tweets", localField: "followeeID", foreignField: "uid", as: "tweet"}},
+            {$unwind: "$tweet"},
+            {$project: {_id: 1, username: "$tweet.username", content: "$tweet.content", createdAt: "$tweet.createdAt"}},
+            {$sort: {createdAt: -1}},
         ])
         return tweets
     }catch(err){

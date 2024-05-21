@@ -8,5 +8,7 @@ router
     .post('/tweet', api.postTweet)
     .post('/follow', api.follow)
     .post('/unfollow', api.unfollow)
+    .post('/updateTweet', api.updateTweet)
+    .post('/deleteTweet', api.deleteTweet)
 
 module.exports = router

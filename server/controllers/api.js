@@ -8,8 +8,7 @@ module.exports = {
         // post a tweet
         // body contents: content
         try{
-
-            const result = await Tweet.postTweet(req.user.uid, req.body.content)
+            const result = await Tweet.postTweet(req.user.uid, req.user.username, req.body.content)
             if(!result){
                 res.status(500).json({success: false, error: "some error in posting the tweet"})
             }else{
@@ -17,6 +16,32 @@ module.exports = {
             }
         }catch(err){
             res.status(500).json({ success: false, error: err})
+        }
+    },
+
+    updateTweet: async (req, res) => {
+        try{
+            const result = await Tweet.updateTweet(req.body.tid, req.body.content);
+            if(!result){
+                res.status(500).json({ success: false, error: "some error occurerd"})
+            }else{
+                res.status(200).json({ success: true, result })
+            }
+        }catch(err){
+            res.status(500).json({ success: false, error: err })
+        }
+    },
+
+    deleteTweet: async (req, res) => {
+        try{
+            const result = await Tweet.deleteTweet(req.body.tid)
+            if(!result){
+                res.status(500).json({ success: false, error: "some error occurerd"})
+            }else{
+                res.status(200).json({ success: true, result })
+            }
+        }catch(err){
+            res.status(500).josn({ success: false, error: err })
         }
     },
 

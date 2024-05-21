@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('../models/User')
+const Follow = require('../models/Follow')
 
 // helper function for generating a jwt token for an authenticated user
 const generateToken = (uid, username) => {
@@ -17,6 +18,9 @@ module.exports = {
         bcrypt.hash(password, 12, async (err, hash) => {
             try{
                 const result = await User.create({username: username, email: email, password: hash})
+                
+                // subscribing to one's own tweets
+                await Follow.followUser(result._id, result._id)
                 if(!result){
                     res.status(403).json({success: false, result})
                 }else{

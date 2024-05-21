@@ -11,6 +11,10 @@ const schema = new Schema({
         type: String,
         required: true,
     },
+    username: {
+        type: String,
+        required: true,
+    },
     content: {
         type: String,
         required: true,
@@ -27,9 +31,27 @@ const schema = new Schema({
     timestamps: true,
 })
  
-schema.statics.postTweet = async function(uid, content) {
+schema.statics.postTweet = async function(uid, username, content) {
     try{
-        const res = await this.create({uid, content})
+        const res = await this.create({uid, username, content})
+        return res;
+    }catch(err){
+        throw err
+    }
+}
+
+schema.statics.deleteTweet = async function(id) {
+    try{
+        const res = await this.delete({_id: id})
+        return res;
+    }catch(err){
+        throw err
+    }
+}
+
+schema.statics.updateTweet = async function(id, content){
+    try{
+        const res = await this.updateOne({_id: id, content: content})
         return res;
     }catch(err){
         throw err
