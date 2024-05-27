@@ -7,7 +7,6 @@ import Layout from "./components/Layout"
 import Page404 from "./pages/Page404"
 import routes from "./routes/index"
 
-
 function App() {
 
     const router = createBrowserRouter([

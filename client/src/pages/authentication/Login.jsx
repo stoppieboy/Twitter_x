@@ -3,11 +3,19 @@ import { Link, useNavigate } from "react-router-dom"
 import { Typography } from "@mui/material"
 import axios from "axios"
 import { logo, useThemeDetector } from "../../components/ThemeDetector"
+import { useEffect } from "react"
 
 const Login = () => {
-
+  
   const dark = useThemeDetector()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if(localStorage.getItem("API_KEY")){
+      navigate(PathConstants.HOME)
+    }
+  })
+
 
   const submitHandler = async(event) => {
     event.preventDefault()

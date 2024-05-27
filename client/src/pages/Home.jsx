@@ -1,29 +1,29 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useNavigate, NavLink } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Typography } from "@mui/material"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHouse, faMagnifyingGlass, faEnvelope } from "@fortawesome/free-solid-svg-icons"
-import { faTwitter } from "@fortawesome/free-brands-svg-icons"
 import PathConstants from "../routes/PathConstants"
 import "../assets/styles/Home.css"
 import Tweet from "../components/Tweet"
 import Loading from "../components/Loading"
+import Navbar from "../components/Navbar"
 
 const Home = () => {
 
-    const [username, setUsername] = useState(null)
+    const [user, setUser] = useState(null)
     const [tweets, setTweets] = useState([])
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
-    const user = localStorage.getItem("API_KEY")
+    const API_TOKEN = localStorage.getItem("API_KEY")
 
     useEffect(() => {
         console.log("rendered");
-        if(!user){
+        if(!API_TOKEN){
             console.log('User not logged in.');
             navigate(PathConstants.LOGIN)
         }
+        setLoading(true)
+        // TODO implement caching to prevent loading tweets again and again unnecessarily
         fetchData()
     }, [])
 
@@ -33,6 +33,7 @@ const Home = () => {
         navigate(PathConstants.LOGIN);
     }
 
+    // TODO make a state called feedLoading and render the feed or the skeleton for the feed based on its value
     const tweetHandler = async() => {
         try{
             const content = document.getElementById("input").innerHTML
@@ -40,28 +41,26 @@ const Home = () => {
             console.log("content extracted from input box:",content);
             const res = await axios.post("http://localhost:3000/api/tweet",{content}, {
                 headers: {
-                    "Authorization": `Bearer ${user}`
+                    "Authorization": `Bearer ${API_TOKEN}`
                 }
             })
-            // tweets.push({username: "Shivam", content})
             fetchData()
-            // setTweets(tweets => [{username: "shivam", content: content}, ...tweets]) 
             console.log('result from posting tweet:',res)
         }catch(err){
             console.log("error:",err);
         }
     }
 
+    // TODO make a state called dataLoading 
     const fetchData = async () => {
         try{
             await axios.get("http://localhost:3000/api/data", {
                 headers: {
-                    "Authorization": `Bearer ${user}`
+                    "Authorization": `Bearer ${API_TOKEN}`
                 }
             }).then((res) => {
-                console.log(res.data);
-                setUsername(res.data.result.username)
-                // MARK: fetching the tweets
+                // console.log(res.data);
+                setUser(res.data.result.user)
                 setTweets(res.data.result.tweets)
             })
             setLoading(false)
@@ -75,24 +74,20 @@ const Home = () => {
         }
     }
 
-    const testFunc = () => {
-        console.log("test click detected");
-        setUsername("testing")
-    }
-
     return (
         <div id="home-container">
             {/* <h1>Welcome {username}</h1>
             HOME
             <div><button className="p-2 rounded-md w-32" onClick={fetchData}>Fetch Data</button></div>
             <div><button className="p-2 rounded-md w-32" onClick={logoutHandler}>Logout</button></div> */}
-            <div id="left-side-pane">
+            {/* <div id="left-side-pane">
                 <img src="/images/big_icon_outline_light.svg" alt="" width="30px"/>
                 <NavLink to={PathConstants.HOME} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faHouse} /></NavLink>
                 <NavLink to={PathConstants.SEARCH} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faMagnifyingGlass} /></NavLink>
                 <NavLink to={PathConstants.TEST} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faEnvelope} /></NavLink>
                 <NavLink to={PathConstants.TEST} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faTwitter} /></NavLink>
-            </div>
+            </div> */}
+            <Navbar/>
             <div id="middle-pane">
                 <div id="twitter-title">
                     <Typography variant="h1" gutterBottom fontWeight={500}>Twitter</Typography>
@@ -109,8 +104,9 @@ const Home = () => {
             </div>
             <div id="right-side-pane">
                 right side bar
-                <div><button className="p-2 rounded-md w-32" onClick={logoutHandler}>Logout</button></div>
-                <div><button className="p-2 rounded-md w-32" onClick={testFunc}>Test</button></div>
+                <div>{user?.name}</div>
+                <div><button className="p-2 rounded-md w-32 mt-2" onClick={logoutHandler}>Logout</button></div>
+                {/* <div><button className="p-2 rounded-md w-32" onClick={testFunc}>Test</button></div> */}
             </div>
         </div>
     )

@@ -17,6 +17,11 @@ const schema = new Schema({
         required: true
     },
 
+    name: {
+        type: String,
+        required: true,
+    },
+
     email: {
         type: String,
         required: true,
@@ -39,7 +44,7 @@ schema.plugin(uniqueValidator)
  * @param {Object{ username, password }} anonymous
  * @returns {Object} user object
  */
-schema.statics.createUser = async function({ username, password}) {
+schema.statics.createUser = async function({ username, name, email, password}) {
     try{
         const user = await this.create({username, email, password})
         return user;
@@ -66,7 +71,7 @@ schema.statics.getFeed = async function( uid ) {
             {$match: { followerID: uid }},
             {$lookup: {from: "tweets", localField: "followeeID", foreignField: "uid", as: "tweet"}},
             {$unwind: "$tweet"},
-            {$project: {_id: 1, username: "$tweet.username", content: "$tweet.content", createdAt: "$tweet.createdAt"}},
+            {$project: {_id: 1, tid: "$tweet._id", name: "$tweet.name", username: "$tweet.username", content: "$tweet.content", createdAt: "$tweet.createdAt"}},
             {$sort: {createdAt: -1}},
         ])
         return tweets

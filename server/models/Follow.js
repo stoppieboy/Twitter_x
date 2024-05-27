@@ -16,10 +16,16 @@ const schema = new Schema({
     },
 })
 
+
+// FIXME prevent duplicate records(i.e prevent a user from following a user more than once)
 schema.statics.followUser = async function(followerID, followeeID) {
     try{
-        const result = await this.create({followerID: followerID, followeeID: followeeID})
-        return result;
+        const duplicate = await this.findOne({ followerID: followerID, followeeID: followeeID });
+        if(!duplicate){
+            const result = await this.create({followerID: followerID, followeeID: followeeID})
+            return result;
+        }
+        return;
     }catch(err){
         throw err
     }

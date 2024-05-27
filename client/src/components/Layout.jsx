@@ -5,6 +5,7 @@ import React from 'react'
 
 const Layout = () => {
 
+    // FIXME improve the loading screen by a rotating blue loading animation
     function ShimmerUI() {
         return(
             <Card sx={{ height: 150, width: 400, m: 2}}>

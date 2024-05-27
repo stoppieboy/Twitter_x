@@ -7,8 +7,9 @@ module.exports = {
     postTweet: async (req, res) => {
         // post a tweet
         // body contents: content
+        console.log(req.user);
         try{
-            const result = await Tweet.postTweet(req.user.uid, req.user.username, req.body.content)
+            const result = await Tweet.postTweet(req.user, req.body.content)
             if(!result){
                 res.status(500).json({success: false, error: "some error in posting the tweet"})
             }else{

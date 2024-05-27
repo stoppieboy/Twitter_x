@@ -4,20 +4,20 @@ const User = require('../models/User')
 const Follow = require('../models/Follow')
 
 // helper function for generating a jwt token for an authenticated user
-const generateToken = (uid, username) => {
+const generateToken = (uid, name, username) => {
     // console.log(data)
-    return jwt.sign({uid, username}, process.env.TOKEN_SECRET, { expiresIn: 86400}) // expires in 24 hours
+    return jwt.sign({uid, name, username}, process.env.TOKEN_SECRET, { expiresIn: 86400}) // expires in 24 hours
 }
 
 module.exports = {
     // Creating a user in the database
     signup: (req, res) => {
         console.log(req.body)
-        const { email, username, password } = req.body
+        const { email, name, username, password } = req.body
 
         bcrypt.hash(password, 12, async (err, hash) => {
             try{
-                const result = await User.create({username: username, email: email, password: hash})
+                const result = await User.create({username: username, name: name, email: email, password: hash})
                 
                 // subscribing to one's own tweets
                 await Follow.followUser(result._id, result._id)
@@ -47,7 +47,7 @@ module.exports = {
                     console.log("error in validating user password in login endpoint: ",err)
                 }
                 if(result){
-                    const token = generateToken(data._id, data.username)
+                    const token = generateToken(data._id, data.name, data.username)
                     console.log('token:',token)
                     res.status(200).json(token)
                 }else{

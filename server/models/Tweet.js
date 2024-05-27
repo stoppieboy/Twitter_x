@@ -11,6 +11,10 @@ const schema = new Schema({
         type: String,
         required: true,
     },
+    name: {
+        type: String,
+        required: true,
+    },
     username: {
         type: String,
         required: true,
@@ -31,9 +35,10 @@ const schema = new Schema({
     timestamps: true,
 })
  
-schema.statics.postTweet = async function(uid, username, content) {
+// TODO change the model to accept more user data like name and maybe turn all the user data into an object
+schema.statics.postTweet = async function({uid, name, username}, content) {
     try{
-        const res = await this.create({uid, username, content})
+        const res = await this.create({uid, name, username, content})
         return res;
     }catch(err){
         throw err

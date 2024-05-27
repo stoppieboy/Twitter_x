@@ -14,6 +14,7 @@ const Signup = () => {
         try{
             await axios.post('http://localhost:3000/auth', {
                 username: event.target.username.value,
+                name: event.target.name.value,
                 email: event.target.email.value,
                 password: event.target.password.value
             });
@@ -31,10 +32,11 @@ const Signup = () => {
             <img src={dark ? logo.dark: logo.light} alt="X icon" className="x-logo" />
             <div className="form">
                 <Typography variant="h1" gutterBottom fontWeight={500}>Twitter</Typography>
-                <input type="text" name="username" id="" placeholder="Username" className="login-field" />
+                <input type="text" name="username" placeholder="Username" className="login-field" />
+                <input type="text" name="name" placeholder="Name" className="login-field" />
                 <input type="text" name="email" placeholder="E-Mail" className="login-field" />
                 <input type="password" name="password" placeholder="Password" className="login-field" />
-                <input type="password" name="" placeholder="Confirm Password" className="login-field" />
+                <input type="password" placeholder="Confirm Password" className="login-field" />
                 <button type="submit" className="login-btn">Sign Up</button>
                 <Link to={PathConstants.LOGIN} rel="noopener noreferrer">Already a user?</Link>
             </div>

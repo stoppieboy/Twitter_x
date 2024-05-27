@@ -13,11 +13,12 @@
     height: 100vh;
     /* width: 10vw; */
     /* max-width: 100px; */
-    flex-grow: 1;
+    /* flex-grow: 1; */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    border-right: 1px solid gray;
     /* background-color: red; */
 }
 
@@ -26,7 +27,7 @@
     flex-grow: 1;
     overflow-y: auto;
     /* padding: 10px; */
-    border-left: 1px solid gray;
+    /* border-left: 1px solid gray; */
     border-right: 1px solid gray;
 }
 
@@ -36,7 +37,8 @@
 }
 
 #right-side-pane {
-    flex-basis: 25vw;
+    /* flex-basis: 25vw; */
+    flex-basis: 25%;
     flex-shrink: 1;
     padding: 12px 20px;
     /* background-color: blue; */
@@ -81,6 +83,7 @@
 .tweet-container {
     border-bottom: 1px solid gray;
     padding: 0 16px;
+    /* padding: 16px; */
 }
 
 #input{
@@ -102,4 +105,8 @@
 
 #input::-webkit-scrollbar{
     display: none;
+}
+
+.font-poppins {
+    font-family: Roboto;
 }

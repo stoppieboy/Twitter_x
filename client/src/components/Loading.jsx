@@ -14,9 +14,9 @@ const RepeatComponent = ({times, render: renderCallback}) => {
 const Loading = () => {
   return (
     <RepeatComponent 
-        times={4}
+        times={3}
         render={(index) => (
-            <div className="tweet-container" key={index}>
+            <div className="tweet-container" style={{padding: "1rem"}} key={index}>
                 <Skeleton variant="rounded" width="80px" height="20px" style={{backgroundColor: "gray", marginBottom: "22px"}} />
                 <Skeleton variant="rounded" width="96%" height="120px" style={{backgroundColor: "gray"}}/>
             </div>
