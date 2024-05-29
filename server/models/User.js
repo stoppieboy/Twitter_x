@@ -83,7 +83,7 @@ schema.statics.getFeed = async function( uid ) {
 schema.statics.test = async function() {
     try{
         const data = await this.aggregate([
-
+            
         ])
         return data;
     }catch(err){

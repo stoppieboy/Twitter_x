@@ -36,29 +36,32 @@ module.exports = {
     login: async (req, res) => {
         console.log("in the login controller:",req.body)
         const { username, password } = req.body
-
-        // validating if a user exists in the database
-        const data = await User.findOne({ username: username})
-        if(data){
-
-            // validating if the password provided matches the actual user password
-            bcrypt.compare(password, data.password, (err, result)=>{
-                if(err){
-                    console.log("error in validating user password in login endpoint: ",err)
-                }
-                if(result){
-                    const token = generateToken(data._id, data.name, data.username)
-                    console.log('token:',token)
-                    res.status(200).json(token)
-                }else{
-                    res.sendStatus(403)
-                }
-            })
-        }else{
-
-            // user does not exist in the database
-            res.status(404).send("user not found")
-
+        try{
+            // validating if a user exists in the database
+            const data = await User.findOne({ username: username})
+            if(data){
+    
+                // validating if the password provided matches the actual user password
+                bcrypt.compare(password, data.password, (err, result)=>{
+                    if(err){
+                        console.log("error in validating user password in login endpoint: ",err)
+                    }
+                    if(result){
+                        const token = generateToken(data._id, data.name, data.username)
+                        console.log('token:',token)
+                        res.status(200).json(token)
+                    }else{
+                        res.sendStatus(403)
+                    }
+                })
+            }else{
+    
+                // user does not exist in the database
+                res.status(404).send("user not found")
+    
+            }
+        }catch(err){
+            res.status(500).json({ success: false, error: err })
         }
     }
     

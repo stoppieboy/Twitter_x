@@ -19,11 +19,10 @@ const Tweet = (props) => {
     if(time[0] >= 60){
         time[0] = time[0]/60
         time[1] = 'm'
-        console.log(time[0]);
         if(time[0] >= 60){
             time[0] = time[0]/60
             time[1] = 'h'
-            if(time[0] >= 60){
+            if(time[0] >= 24){
                 time[0] = time[0]/24
                 time[1] = 'd'
                 if(time[0] >= 3){
@@ -46,7 +45,7 @@ const Tweet = (props) => {
                 <div className="p-2 mr-2"><FontAwesomeIcon icon={faUser}/></div>
                 <div className="flex-grow pb-3">
                     <div className="flex justify-between items-center">
-                        <p className="w-fit font-poppins"> <span className="font-bold">{tweet.name}</span> <span className="text-gray-400 font-light">@{tweet.username} • {timeString}</span></p>
+                        <p className="w-fit"> <span className="font-bold">{tweet.name}</span> <span className="text-gray-400 font-light">@{tweet.username} • {timeString}</span></p>
                         <span className="px-2"><FontAwesomeIcon icon={faEllipsisV} style={{cursor: "pointer"}}/></span>
                     </div>
                     <Typography variant="body2" className="tweet-content">{tweet.content}</Typography>

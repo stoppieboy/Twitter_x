@@ -21,7 +21,7 @@ const SearchPage = () => {
                 }
             })
         }catch(err){
-            console.log(err.response.data.error)// some error in following the user
+            console.log("error:",err)// some error in following the user
         }
     }
 

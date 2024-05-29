@@ -38,5 +38,14 @@ module.exports = {
         }catch(err){
             res.status(500).json({success: false, error: err})
         }
+    },
+    test: async(req, res) => {
+        try {
+            const result = await User.findOne({username: req.query.u}).populate('followers').exec()
+            console.log(result)
+            res.sendStatus(200)
+        } catch (err) {
+            console.log(err);
+        }
     }
 }

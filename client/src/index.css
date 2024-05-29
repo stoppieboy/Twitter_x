@@ -56,6 +56,9 @@ button {
   /* font-family: inherit; */
   /* background-color: #1a1a1a; */
   background-color: rgb(26, 140, 216);
+  /* color: black; */
+  color: black;
+  font-weight: 500;
   /* cursor: pointer; */
 }
 button:hover {

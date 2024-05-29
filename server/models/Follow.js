@@ -24,8 +24,9 @@ schema.statics.followUser = async function(followerID, followeeID) {
         if(!duplicate){
             const result = await this.create({followerID: followerID, followeeID: followeeID})
             return result;
+        }else{
+            throw new Error("user already followed")
         }
-        return;
     }catch(err){
         throw err
     }
