@@ -17,10 +17,11 @@ module.exports = {
 
         bcrypt.hash(password, 12, async (err, hash) => {
             try{
-                const result = await User.create({username: username, name: name, email: email, password: hash})
+                const result = await User.createUser({username, name, email, password: hash})
                 
                 // subscribing to one's own tweets
                 await Follow.followUser(result._id, result._id)
+                await User.followUser(result._id, result._id)
                 if(!result){
                     res.status(403).json({success: false, result})
                 }else{

@@ -50,10 +50,11 @@ module.exports = {
         try{
             const result = await Follow.followUser(req.user.uid, req.body.followeeID)
             console.log({result})
-            if(!result){
+            const result2 = await User.followUser(req.user.uid, req.body.followeeID)
+            if(!result || !result2){
                 res.status(500).json({success: false, error: "some error in following the user"})
             }else{
-                res.status(200).json({success: true, result})
+                res.status(200).json({success: true, result, result2})
             }
         }catch(err){
             res.status(500).json({ success: false, error: err })
@@ -63,10 +64,11 @@ module.exports = {
     unfollow: async(req, res) => {
         try{
             const result = await Follow.unfollowUser(req.user.uid, req.body.followeeID)
-            if(!result){
+            const result2 = await User.unfollowUser(req.user.uid, req.body.followeeID)
+            if(!result || !result2){
                 res.status(500).json({success: false, error: "some error in following the user"})
             }else{
-                res.status(200).json({success: true, result})
+                res.status(200).json({success: true, result, result2})
             }
         }catch(err){
             res.status(500).json({ success: false, error: err })

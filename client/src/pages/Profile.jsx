@@ -1,4 +1,6 @@
 import { useLocation } from "react-router-dom"
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Profile = () => {
 
@@ -8,6 +10,7 @@ const Profile = () => {
 
     return (
         <div className="home-container">
+            <FontAwesomeIcon icon={faUser} className="text-7xl"/>
             <div>
                 {user.username}
             </div>

@@ -25,3 +25,4 @@ currently using cloud hosted database server -- MongoDB Atlas.
 - [joining two collections in MongoDB](https://hevodata.com/learn/mongodb-join-two-collections/)
 - [aggregation pipeline in MongoDB](https://www.mongodb.com/docs/manual/reference/operator/aggregation/match/)
 - [filtering mongoDB documents based on text](https://sparkbyexamples.com/mongodb/mongodb-check-if-a-field-contains-a-string/)
+- [pushing data in mongoDB arrays](https://www.mongodb.com/docs/manual/reference/operator/update/push/)

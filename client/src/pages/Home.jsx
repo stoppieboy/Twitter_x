@@ -30,6 +30,7 @@ const Home = () => {
     
     const logoutHandler = () => {
         localStorage.removeItem("API_KEY")
+        localStorage.removeItem("user")
         navigate(PathConstants.LOGIN);
     }
 
@@ -61,6 +62,8 @@ const Home = () => {
             }).then((res) => {
                 // console.log(res.data);
                 setUser(res.data.result.user)
+                localStorage.setItem("userID", res.data.result.user._id)
+                console.log("user:",user);
                 setTweets(res.data.result.tweets)
             })
             setLoading(false)
@@ -76,17 +79,6 @@ const Home = () => {
 
     return (
         <div id="home-container">
-            {/* <h1>Welcome {username}</h1>
-            HOME
-            <div><button className="p-2 rounded-md w-32" onClick={fetchData}>Fetch Data</button></div>
-            <div><button className="p-2 rounded-md w-32" onClick={logoutHandler}>Logout</button></div> */}
-            {/* <div id="left-side-pane">
-                <img src="/images/big_icon_outline_light.svg" alt="" width="30px"/>
-                <NavLink to={PathConstants.HOME} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faHouse} /></NavLink>
-                <NavLink to={PathConstants.SEARCH} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faMagnifyingGlass} /></NavLink>
-                <NavLink to={PathConstants.TEST} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faEnvelope} /></NavLink>
-                <NavLink to={PathConstants.TEST} className="nav-item" style={({isActive})=>({color: isActive?"rgb(26, 140, 216)": "white"})}><FontAwesomeIcon icon={faTwitter} /></NavLink>
-            </div> */}
             <Navbar/>
             <div id="middle-pane">
                 <div id="twitter-title">
@@ -94,7 +86,7 @@ const Home = () => {
                 </div>
                 <div id="compose-box">  
                     <div id="input" onFocus={(e)=>{if(e.target.innerHTML==="Tweet...") e.target.innerHTML = ""}} onBlur={(e) => {if(e.target.innerHTML ==="") e.target.innerHTML="Tweet..."}}>Tweet...</div>
-                    <div className="flex justify-end"><button className="p-2 rounded-md w-32" onClick={tweetHandler}>Tweet</button></div>
+                    <div className="flex justify-end"><button className="px-6" onClick={tweetHandler}>Post</button></div>
                 </div>
                 <div id="feed">
                     {loading? <Loading/>: tweets.map((t, id) => (
@@ -105,7 +97,7 @@ const Home = () => {
             <div id="right-side-pane">
                 right side bar
                 <div>{user?.name}</div>
-                <div><button className="p-2 rounded-md w-32 mt-2" onClick={logoutHandler}>Logout</button></div>
+                <div><button className="px-5 mt-2" onClick={logoutHandler}>Logout</button></div>
                 {/* <div><button className="p-2 rounded-md w-32" onClick={testFunc}>Test</button></div> */}
             </div>
         </div>
