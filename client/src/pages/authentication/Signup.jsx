@@ -12,7 +12,7 @@ const Signup = () => {
 
         event.preventDefault();
         try{
-            await axios.post('http://localhost:3000/auth', {
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth`, {
                 username: event.target.username.value,
                 name: event.target.name.value,
                 email: event.target.email.value,
