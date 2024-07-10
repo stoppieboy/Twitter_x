@@ -21,7 +21,7 @@ const Login = () => {
     event.preventDefault()
     if(!localStorage.getItem("API_KEY")){
       try{
-        const { data } = await axios.post("http://localhost:3000/auth/login", {
+        const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, {
           username: event.target.username.value,
           password: event.target.password.value
         })

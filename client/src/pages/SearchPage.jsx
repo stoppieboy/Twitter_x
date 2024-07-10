@@ -12,7 +12,7 @@ const SearchPage = () => {
         // TODO study redux and context API to find a way to share current user data with all components
         try{
         // FIXME avoid using explicit api url
-            await axios.post("http://localhost:3000/api/follow", {
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/follow`, {
                 "followeeID": id
             }, {
                 headers: {
@@ -26,7 +26,7 @@ const SearchPage = () => {
 
     const unfollowHandler = async(id) => {
         try{
-            await axios.post("http://localhost:3000/api/unfollow",{
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/unfollow`,{
                 "followeeID": id
             }, {
                 headers: {

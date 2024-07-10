@@ -11,7 +11,7 @@ const Search = ({ setSearchResult }) => {
     // debounicing
     useEffect(() => {
       const debounce = setTimeout(() => {
-        axios.get(`http://localhost:3000/search/user?q=${searchTerm}&user_id=${localStorage.getItem("userID")}`).then((res) => {
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/search/user?q=${searchTerm}&user_id=${localStorage.getItem("userID")}`).then((res) => {
             setSearchResult(res.data.result)
         })
       }, 500);

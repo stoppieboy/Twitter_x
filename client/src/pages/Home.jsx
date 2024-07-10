@@ -40,7 +40,7 @@ const Home = () => {
             const content = document.getElementById("input").innerHTML
             document.getElementById('input').innerHTML = "Tweet..."
             console.log("content extracted from input box:",content);
-            const res = await axios.post("http://localhost:3000/api/tweet",{content}, {
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/tweet`,{content}, {
                 headers: {
                     "Authorization": `Bearer ${API_TOKEN}`
                 }
@@ -55,7 +55,7 @@ const Home = () => {
     // TODO make a state called dataLoading 
     const fetchData = async () => {
         try{
-            await axios.get("http://localhost:3000/api/data", {
+            await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/data`, {
                 headers: {
                     "Authorization": `Bearer ${API_TOKEN}`
                 }
