@@ -28,7 +28,7 @@ const Login = () => {
     if(!localStorage.getItem("API_KEY")){
       try{
         console.log('timeout begin')
-        await sleep(3000)
+        // await sleep(3000)
         const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, {
           username: event.target.username.value,
           password: event.target.password.value
