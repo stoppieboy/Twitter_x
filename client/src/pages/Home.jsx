@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Typography } from "@mui/material"
 import PathConstants from "../routes/PathConstants"
@@ -7,6 +7,7 @@ import "../assets/styles/Home.css"
 import Tweet from "../components/Tweet"
 import Loading from "../components/Loading"
 import Navbar from "../components/Navbar"
+import { UserContext } from "../Utility/Contexts"
 
 const Home = () => {
 
@@ -16,21 +17,24 @@ const Home = () => {
     const navigate = useNavigate()
     const API_TOKEN = localStorage.getItem("API_KEY")
 
+    const user_context_value = useContext(UserContext)
+
     useEffect(() => {
         console.log("rendered");
         if(!API_TOKEN){
             console.log('User not logged in.');
             navigate(PathConstants.LOGIN)
         }
+        console.log("user_context_value", user_context_value)
         setLoading(true)
         // TODO implement caching to prevent loading tweets again and again unnecessarily
-        fetchData()
+        return () => fetchData()
     }, [])
 
     
     const logoutHandler = () => {
         localStorage.removeItem("API_KEY")
-        localStorage.removeItem("user")
+        localStorage.removeItem("userID")
         navigate(PathConstants.LOGIN);
     }
 
@@ -55,17 +59,16 @@ const Home = () => {
     // TODO make a state called dataLoading 
     const fetchData = async () => {
         try{
-            await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/data`, {
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/data`, {
                 headers: {
                     "Authorization": `Bearer ${API_TOKEN}`
                 }
-            }).then((res) => {
-                // console.log(res.data);
-                setUser(res.data.result.user)
-                localStorage.setItem("userID", res.data.result.user._id)
-                console.log("user:",user);
-                setTweets(res.data.result.tweets)
             })
+            const curr_user = res.data.result.user[0]
+            console.log("res data:",curr_user)
+            localStorage.setItem("userID", curr_user._id)
+            setUser(curr_user)
+            setTweets(res.data.result.tweets)
             setLoading(false)
         }catch(err){
             console.log("error in fetching data",err);
@@ -96,7 +99,7 @@ const Home = () => {
             </div>
             <div id="right-side-pane">
                 right side bar
-                <div>{user?.name}</div>
+                <div>Welcome, {user?.name.split(" ")[0]}</div>
                 <div><button className="px-5 mt-2" onClick={logoutHandler}>Logout</button></div>
                 {/* <div><button className="p-2 rounded-md w-32" onClick={testFunc}>Test</button></div> */}
             </div>

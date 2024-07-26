@@ -78,7 +78,10 @@ module.exports = {
     data: async (req, res) => {
         // Feed data
         try{
-            const user = await User.findOne({ username: req.user.username })
+            const user = await User.aggregate([
+                {$match: {username: req.user.username}},
+                {$project: {_id: 1, name: 1}}
+            ])
             if(!user){
                 res.status(404).json({ success: false, error: "user not found"})
             }else{
