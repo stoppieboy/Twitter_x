@@ -28,7 +28,7 @@ const Home = () => {
         console.log("user_context_value", user_context_value)
         setLoading(true)
         // TODO implement caching to prevent loading tweets again and again unnecessarily
-        return () => fetchData()
+        fetchData()
     }, [])
 
     
