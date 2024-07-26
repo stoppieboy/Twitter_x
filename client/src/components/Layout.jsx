@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import { Suspense } from 'react'
 import { Card, Skeleton, CardHeader, CardContent } from "@mui/material"
 import React from 'react'
+import { UserContext } from "../Utility/Contexts"
 
 const Layout = () => {
 
@@ -26,7 +27,9 @@ const Layout = () => {
 
     return (
         <Suspense fallback={<ShimmerUI />}>
-            <Outlet />
+            <UserContext.Provider value='Shivam'>
+                <Outlet />
+            </UserContext.Provider>
         </Suspense>
     )
 }

@@ -18,9 +18,10 @@ currently using cloud hosted database server -- MongoDB Atlas.
 
 - Implement Microservice architecture.
 - research better alternatives of HTTP for inter-service communication such as gRPC.
-- implement separate ??
+- implement separate
 
 ## References
+
 - [JWT based server-side authentication and authorization](https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs)
 - [joining two collections in MongoDB](https://hevodata.com/learn/mongodb-join-two-collections/)
 - [aggregation pipeline in MongoDB](https://www.mongodb.com/docs/manual/reference/operator/aggregation/match/)

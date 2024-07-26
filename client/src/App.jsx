@@ -1,6 +1,7 @@
 // import { useState } from 'react'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import './App.css'
+import './assets/styles/Home.css'
 // import Login from './pages/authentication/Login'
 // import Signup from './pages/authentication/Signup'
 import Layout from "./components/Layout"
