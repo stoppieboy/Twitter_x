@@ -59,11 +59,13 @@ const Home = () => {
     // TODO make a state called dataLoading 
     const fetchData = async () => {
         try{
+            console.log('trying')
             const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/data`, {
                 headers: {
                     "Authorization": `Bearer ${API_TOKEN}`
                 }
             })
+            console.log('tried')
             const curr_user = res.data.result.user[0]
             console.log("res data:",curr_user)
             localStorage.setItem("userID", curr_user._id)
